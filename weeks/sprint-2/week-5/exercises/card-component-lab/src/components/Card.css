@@ -1,3 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap');
+
 div {
   font-family: "Roboto"
+}
+
+.card {
+  width: 371px;
+  height: 372px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+div.clicked {
+  display: block;
+  overflow: hidden;
+}
+
+.card__header {
+  max-width: 100%;
+  min-height: 126px;
+  font-size: 70px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.clicked > .card__header {
+  max-width: 100%;
+  font-size: 70px;
+  height: 50%;
+  align-items: center;
+}
+
+.card__body {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding: 30px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.clicked > .card__body {
+  font-size: 70px;
+  max-width: 100%;
+  height: 50%;
+}
+
+.clicked > .card__body:hover {
+  height: 100%;
+  transition: 1s ease;
+  z-index: 999;
+}
+
+.clicked > .card__header:hover {
+  height: 100%;
+  transition: 1s ease;
+}
+
+/* it works!!
+Yea hehe the bottom does not work for me though
+ya same same hahha
+*/
+
+.card__desc {
+  font-size: 36px;
+  font-family: "Lora", serif;
+  font-style: italic;
+  transform: translateY(-20px);
+}
+
+button {
+  width: 311px;
+  height: 50px;
+  font-size: 30px;
+  text-transform: uppercase;
+  font-weight: bold;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
 }
