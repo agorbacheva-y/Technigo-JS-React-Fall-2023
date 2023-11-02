@@ -1,85 +1,47 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
+import "./Tasks.css";
 
-export const Tasks = () => {
-  const [taskList, setTaskList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [newTodo, setNewTodo] = useState("");
+const Tasks = () => {
+  const [tasks, setTasks] = useState(null);
+  const [twentyTasks, setTwentyTasks] = useState(null);
 
-  const url = "https://week-7-backend.onrender.com/tasks";
+  const taskApi = "https://week-7-backend.onrender.com/tasks";
 
   const fetchTasks = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(url);
-      if (response.ok) {
-        const data = await response.json();
-        setTaskList(data);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      /*      This block is executed no matter what, whether there was an error or not. 
-      It's typically used for cleanup tasks. In this case, it sets the loading state back to false, 
-      indicating that the loading operation has finished.
-      */
-      setLoading(false);
-    }
-  };
+    await fetch(taskApi)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);      
+      setTasks(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
-  const handleNewTodoChange = (event) => {
-    setNewTodo(event.target.value);
-  };
+  // function to save 20 most recent tasks in twentyTasks state
+  const sliceTasks = () => {
+    let newTasks = tasks?.reverse().slice(0, 20);
+    setTwentyTasks(newTasks);
+    console.log("20 tasks: ", twentyTasks);
+  }
 
-  const onFormSubmit = async (event) => {
-    event.preventDefault();
-
-    // The provided code defines an options object used for configuring and customizing an HTTP request, specifically a POST request.
-
-    const options = {
-      method: "POST",
-      // Headers provide additional information about the request, such as the data format.
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      // This property contains the data that will be sent with the request. In this specific case, it's sending an object with a description field
-      body: JSON.stringify({
-        description: newTodo,
-      }),
-    };
-
-    try {
-      const response = await fetch(url, options);
-      if (response.ok) {
-        await fetchTasks();
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      // cleanup function, setNewToDo string as empty
-      // preventing any unintended data from lingering in the variable.
-      setNewTodo("");
-    }
-  };
-
+  // fetch tasks from taskApi and save to tasks state
   useEffect(() => {
     fetchTasks();
-  }, []);
+  },[]);
+
+  // run sliceTasks function after tasks state has been updated
+  useEffect(() => {
+    sliceTasks();
+  },[tasks]);
 
   return (
     <div>
-      <TaskForm
-        newTodo={newTodo}
-        onNewTodoChange={handleNewTodoChange}
-        onFormSubmit={onFormSubmit}
-      />
-      <TaskList
-        loading={loading}
-        taskList={taskList}
-        setTaskList={setTaskList}
-      />
+      <TaskForm />
+      <TaskList twentyTasks={twentyTasks}/>
     </div>
   );
 };
