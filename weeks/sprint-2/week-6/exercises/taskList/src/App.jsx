@@ -1,9 +1,12 @@
-import { Tasks } from "./components/Tasks";
+import Tasks from "./components/Tasks";
+import "./App.css";
 
-export const App = () => {
+const App = () => {
   return (
     <div>
       <Tasks />
     </div>
   );
 };
+
+export default App;

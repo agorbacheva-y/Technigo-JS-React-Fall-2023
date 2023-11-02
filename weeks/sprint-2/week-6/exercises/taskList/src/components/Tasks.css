@@ -1,0 +1,17 @@
+.taskCardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.taskCard  {
+  width: 40vw;
+  min-width: 200px;
+  display: flex;
+  justify-content: flex-start;
+  border: 1px solid white;
+  padding: 3rem;
+  border-radius: 2rem;
+}
