@@ -1,13 +1,40 @@
-const ProductList = () => {
-  // dispatch your addItem action in your ProducList component
+import { useDispatch } from "react-redux";
+import { addItem } from "../reducers/cartSlice";
 
-  // create a list of products to display
-  // const products = [];
+const ProductList = () => {
+  const dispatch = useDispatch();
+
+  const products = [
+    {
+      id: 1,
+      name: "Apple"
+    },
+    {
+      id: 2,
+      name: "Banana"
+    },
+    {
+      id: 3,
+      name: "Cherry"
+    },
+  ];
+
+  const handleClick = (product) => {
+    dispatch(addItem(product));
+  }
 
   return (
     <div>
       <h2>Product List</h2>
-      <ul>{/* create your product list mapping through `products`` */}</ul>
+      <ul>
+        {products.map(({id, name}) => (
+          <li key={id}>
+            {name}
+            <button onClick={() => handleClick(name)}>Add to cart</button>
+          </li>
+          
+        ))}
+      </ul>
     </div>
   );
 };

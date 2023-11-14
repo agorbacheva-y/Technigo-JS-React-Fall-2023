@@ -1,13 +1,19 @@
+import { useSelector } from "react-redux";
+
 const Cart = () => {
-  // dispatch your removeItem action in your ProducList component
-  // populate your cartItems object from the global state
+  const cartItems = useSelector((state) => state.cart.items);
+  console.log(cartItems);
 
   return (
     <div>
       <h2>Shopping Cart</h2>
       <ul>
         <ul>
-          {/* create your cart items list mapping through `cartItems`` */}
+          {cartItems.map((item, index) => (
+            <li key={index}>
+              {item}
+            </li>
+          ))}
         </ul>
       </ul>
     </div>
