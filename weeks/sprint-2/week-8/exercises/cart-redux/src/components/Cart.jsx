@@ -1,8 +1,14 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { removeItem } from "../reducers/cartSlice";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
-  console.log(cartItems);
+  //console.log(cartItems);
+  const dispatch = useDispatch();
+
+  const handleClick = (item) => {
+    dispatch(removeItem(item));
+  }
 
   return (
     <div>
@@ -12,6 +18,7 @@ const Cart = () => {
           {cartItems.map((item, index) => (
             <li key={index}>
               {item}
+              <button onClick={() => handleClick(item) }>Remove</button>
             </li>
           ))}
         </ul>
