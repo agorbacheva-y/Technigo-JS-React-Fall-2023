@@ -1,34 +1,21 @@
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { addNote, removeNote } from "../reducers/noteSlice";
 
 const Notes = () => {
   const dispatch = useDispatch();
+  const [ noteInput, setNoteInput ] = useState("");
 
-  const notes = [
-    {
-      id: 1,
-      message: "Note 1"
-    },
-    {
-      id: 2,
-      message: "Note 2"
-    },
-    {
-      id: 3,
-      message: "Note 3"
-    }
-  ];
+  const handleClick = (note) => {
+    dispatch(addNote(note))
+  }
 
   return (
     <div>
-      {notes.map(({id, message}) => (
-        <div key={id}>
-          {message}
-          <button onClick={() => dispatch(addNote(message)) }>Add note</button>
-          <button onClick={() => dispatch(removeNote(id)) }>Remove note</button>
-        </div>
-       
-      ))}
+      <form>
+        <input name="note" placeholder="Enter text here" value={noteInput} onChange={(e) => setNoteInput(e.target.value)} />
+        <button onClick={() => handleClick(noteInput)}>Add note</button>
+      </form>
     </div>
   );
 };
