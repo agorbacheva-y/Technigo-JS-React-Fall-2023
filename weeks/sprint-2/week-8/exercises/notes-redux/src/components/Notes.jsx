@@ -1,11 +1,36 @@
-export const Notes = () => {
+import { useDispatch } from "react-redux";
+import { addNote, removeNote } from "../reducers/noteSlice";
 
-  // render your list of notes in this component
-  // add a field and button to add notes and another button to remove a note
+const Notes = () => {
+  const dispatch = useDispatch();
+
+  const notes = [
+    {
+      id: 1,
+      message: "Note 1"
+    },
+    {
+      id: 2,
+      message: "Note 2"
+    },
+    {
+      id: 3,
+      message: "Note 3"
+    }
+  ];
 
   return (
     <div>
-      <h2>Notes</h2>
+      {notes.map(({id, message}) => (
+        <div key={id}>
+          {message}
+          <button onClick={() => dispatch(addNote(message)) }>Add note</button>
+          <button onClick={() => dispatch(removeNote(id)) }>Remove note</button>
+        </div>
+       
+      ))}
     </div>
   );
 };
+
+export default Notes;

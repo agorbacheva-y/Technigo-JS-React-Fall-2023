@@ -1,8 +1,13 @@
+import { Provider } from "react-redux";
+import { store } from "./store";
+import Notes from "./components/Notes";
+
 export const App = () => {
   return (
-    // wrap the app within a <Provider>
-    <div>
-      <h1>Render your notes here</h1>
-    </div>
+    <Provider store={store} >
+      <div>
+        <Notes />
+      </div>
+    </Provider>
   );
 };
